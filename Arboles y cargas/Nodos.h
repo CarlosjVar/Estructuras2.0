@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 class NodoBinarioAVL {
@@ -7,7 +8,7 @@ class NodoBinarioAVL {
     NodoBinarioAVL(int num, NodoBinarioAVL *der = NULL, NodoBinarioAVL *izq = NULL, NodoBinarioAVL *sig=NULL, NodoBinarioAVL *ant=NULL):
         Hizq(izq), Hder(der), valor(num), siguiente(sig), anterior(ant), FB(0) {}
 
-
+    string nombre;
     int valor;
     int FB;
     NodoBinarioAVL *Hizq, *Hder, *siguiente, *anterior;
@@ -42,10 +43,10 @@ typedef NodoBinarioAVL *pNodoBinarioAVL;
 class NodoBinario {
    public:
 
-    NodoBinario(int num, NodoBinario *der = NULL, NodoBinario *izq = NULL, NodoBinario *sig=NULL, NodoBinario *ant=NULL):
-        Hizq(izq), Hder(der), valor(num), siguiente(sig), anterior(ant){}
+    NodoBinario(int num,string nombre, NodoBinario *der = NULL, NodoBinario *izq = NULL, NodoBinario *sig=NULL, NodoBinario *ant=NULL):
+        Hizq(izq), Hder(der), valor(num), nombre(nombre), siguiente(sig), anterior(ant){}
 
-
+    string nombre;
     int valor;
     pNodoBinarioAVL productos;
     NodoBinario *Hizq, *Hder, *siguiente, *anterior;
@@ -53,25 +54,25 @@ class NodoBinario {
     friend class Pila;
     friend class Binario;
 
-    void InsertaBinario(int num);
+    void InsertaBinario(int num, string nombre);
 };
 
 typedef NodoBinario *pnodo;
 typedef NodoBinario *pNodoBinario;
 
-void NodoBinario::InsertaBinario(int num)
+void NodoBinario::InsertaBinario(int num,string nombre)
 {
     if(num<valor){
         if(Hizq==NULL){
-            Hizq = new NodoBinario(num);
+            Hizq = new NodoBinario(num,nombre);
         }else{
-            Hizq->InsertaBinario(num);
+            Hizq->InsertaBinario(num,nombre);
         }
     }else{
         if(Hder==NULL){
-            Hder = new NodoBinario(num);
+            Hder = new NodoBinario(num,nombre);
         }else{
-            Hder->InsertaBinario(num);
+            Hder->InsertaBinario(num,nombre);
         }
     }
 }

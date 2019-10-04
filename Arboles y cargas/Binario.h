@@ -1,5 +1,7 @@
 #include "Pila.h"
 #include <iostream>
+#include <fstream>
+#include <sstream>
 using namespace std;
 
 
@@ -9,20 +11,56 @@ public:
 
     Binario():raiz(NULL){}
 
-    void InsertaNodo(int num);
+    void InsertaNodo(int num, string nombre);
     void PreordenI();
     void InordenI();
     void PostordenI();
-
-    bool Hh;
+    void PostordenG(pNodoBinario pRaiz);
+    void cargarPasillos (string pNombreArchivo);
+    bool Hh = false;
 };
 
-void Binario::InsertaNodo(int num)
+
+pNodoBinario buscarNodo(pNodoBinario raiz, int valor)
+{
+    if (raiz == NULL || raiz->valor == valor)
+       return raiz;
+    if (raiz->valor < valor)
+       return buscarNodo(raiz->Hder, valor);
+    return buscarNodo(raiz->Hizq, valor);
+}
+
+
+void Binario::cargarPasillos(string pNombreArchivo){
+    string linea;
+    string codigoS;
+    int codigo;
+    string nombre;
+    ifstream archivo (pNombreArchivo);
+    while (getline(archivo, linea)){
+        istringstream lineaActual (linea);
+        getline(lineaActual,codigoS,';');
+        getline(lineaActual,nombre,';');
+        codigo = stoi (codigoS);
+        if (raiz==NULL){
+            InsertaNodo(codigo,nombre);
+        }else{
+            pNodoBinario aux = buscarNodo(raiz,codigo);
+            if (aux==NULL){
+                InsertaNodo(codigo,nombre);
+            }
+        }
+    }
+    archivo.close();
+}
+
+
+void Binario::InsertaNodo(int num,string nombre)
 {
     if(raiz==NULL){
-        raiz = new NodoBinario(num);
+        raiz = new NodoBinario(num,nombre);
     }else{
-        raiz->InsertaBinario(num);
+        raiz->InsertaBinario(num,nombre);
     }
 }
 
@@ -31,7 +69,7 @@ void Binario::PreordenI(){
     Pila p;
     while(p.Vacia()==false || (Act!=NULL)){
         if(Act!=NULL){
-            cout<<Act->valor<<" - ";
+            cout<<Act->valor<<","<<Act->nombre<<" - ";
             p.Push(Act);
             Act = Act->Hizq;
         }else{
@@ -52,7 +90,7 @@ void Binario::InordenI(){
         }
         if(!p.Vacia()){
             Act=p.Pop();
-            cout<<Act->valor<<" - ";
+            cout<<Act->valor<<","<<Act->nombre<<" - ";
             Act=Act->Hder;
         }
         if(p.Vacia() & Act==NULL){
@@ -67,7 +105,7 @@ void Binario::PostordenI(){
     Pila p2;
     while(!p.Vacia() || Act!=NULL){
         if(Act!=NULL){
-            p2.Push(new NodoBinario(Act->valor));
+            p2.Push(new NodoBinario(Act->valor,Act->nombre));
             p.Push(Act);
             Act = Act->Hder;
         }else{
@@ -77,10 +115,18 @@ void Binario::PostordenI(){
     }
     while(!p2.Vacia()){
         NodoBinario *salida=p2.Pop();
-        cout<<salida->valor<<" - ";
+        cout<<Act->valor<<","<<Act->nombre<<" - ";
     }
 }
 
+void Binario::PostordenG(pNodoBinario pRaiz)
+{
+    if (pRaiz == NULL)
+        return;
+    PostordenG(pRaiz->Hizq);
+    PostordenG(pRaiz->Hder);
+    cout<<pRaiz->valor<<","<<pRaiz->nombre<<" - ";
+}
 
 class BinarioAVL{
 public:
@@ -92,6 +138,7 @@ public:
     void PreordenI();
     void InordenI();
     void PostordenI();
+    void PostordenG(pNodoBinarioAVL pRaiz);
 
     bool Hh;
 
@@ -157,6 +204,15 @@ void BinarioAVL::PostordenI(){
         NodoBinarioAVL *salida=p2.Pop();
         cout<<salida->valor<<" - ";
     }
+}
+
+void BinarioAVL::PostordenG(pNodoBinarioAVL pRaiz)
+{
+    if (pRaiz == NULL)
+        return;
+    PostordenG(pRaiz->Hizq);
+    PostordenG(pRaiz->Hder);
+    cout<<pRaiz->valor<<","<<pRaiz->nombre<<" - ";
 }
 
 
