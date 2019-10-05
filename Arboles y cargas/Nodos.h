@@ -48,7 +48,7 @@ class NodoBinario {
 
     string nombre;
     int valor;
-    pNodoBinarioAVL productos;
+    pNodoBinarioAVL productos = NULL;
     NodoBinario *Hizq, *Hder, *siguiente, *anterior;
 
     friend class Pila;
