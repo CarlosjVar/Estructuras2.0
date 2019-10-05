@@ -11,6 +11,7 @@ public:
 
     Binario():raiz(NULL){}
 
+    void cargarProductos (string pNombreArchivo);
     void InsertaNodo(int num, string nombre);
     void PreordenI();
     void InordenI();
@@ -20,14 +21,45 @@ public:
     bool Hh = false;
 };
 
-
-pNodoBinario buscarNodo(pNodoBinario raiz, int valor)
+pNodoBinario buscarNodo(pNodoBinario pRaiz, int valor)
 {
-    if (raiz == NULL || raiz->valor == valor)
-       return raiz;
-    if (raiz->valor < valor)
-       return buscarNodo(raiz->Hder, valor);
-    return buscarNodo(raiz->Hizq, valor);
+    if (pRaiz == NULL || pRaiz->valor == valor)
+       return pRaiz;
+    if (pRaiz->valor < valor)
+       return buscarNodo(pRaiz->Hder, valor);
+    return buscarNodo(pRaiz->Hizq, valor);
+}
+
+
+void Binario::cargarProductos (string pNombreArchivo){
+    string linea;
+    string codigoS;
+    int codigo;
+    string codigoPasilloS;
+    int codigoPasillo;
+    string nombre;
+    ifstream archivo (pNombreArchivo);
+    while (getline(archivo, linea)){
+        istringstream lineaActual (linea);
+        getline(lineaActual,codigoPasilloS,';');
+        getline(lineaActual,codigoS,';');
+        getline(lineaActual,nombre,';');
+        codigo = stoi (codigoS);;
+        codigoPasillo = stoi (codigoPasilloS);
+        pNodoBinario aux = buscarNodo(raiz,codigoPasillo);
+        if (aux!=NULL){
+                if (aux->productos==NULL){
+                    aux->productos = new NodoBinarioAVL (codigo,nombre);
+                }else{
+                    pNodoBinario aux2 = buscarNodo(aux->productos,codigo)
+                    if (aux2==NULL){
+                        BinarioAVL B3;
+                        B3.InsertarBalanceado (aux->productos,false,codigo,nombre);
+                    }
+                }
+        }
+    }
+    return;
 }
 
 
@@ -134,22 +166,31 @@ public:
 
     BinarioAVL():raiz(NULL){}
 
-    void InsertaNodoAVL(int num);
     void PreordenI();
     void InordenI();
     void PostordenI();
     void PostordenG(pNodoBinarioAVL pRaiz);
 
-    bool Hh;
+    bool Hh = false;
 
+    pNodoBinarioAVL buscarNodo(pNodoBinarioAVL raiz, int valor);
     void Equilibrar1(NodoBinarioAVL *n, bool);
     void Equilibrar2(NodoBinarioAVL *n, bool);
-    void InsertarBalanceado(NodoBinarioAVL*&r, bool &Hh, int x);
+    void InsertarBalanceado(NodoBinarioAVL*&r, bool &Hh, int x, string nombre);
     void RotacionDobleIzquierda(NodoBinarioAVL *&n1, NodoBinarioAVL *&n2);
     void RotacionDobleDerecha(NodoBinarioAVL *&n1, NodoBinarioAVL *&n2);
     void RotacionSimpleIzquierda(NodoBinarioAVL *&n1, NodoBinarioAVL *&n2);
     void RotacionSimpleDerecha(NodoBinarioAVL *&n1, NodoBinarioAVL *&n2);
 };
+
+pNodoBinarioAVL buscarNodo(pNodoBinarioAVL pRaiz, int valor)
+{
+    if (pRaiz == NULL || pRaiz->valor == valor)
+       return pRaiz;
+    if (pRaiz->valor < valor)
+       return buscarNodo(pRaiz->Hder, valor);
+    return buscarNodo(pRaiz->Hizq, valor);
+}
 
 void BinarioAVL::PreordenI(){
     NodoBinarioAVL *Act = raiz;
@@ -192,7 +233,7 @@ void BinarioAVL::PostordenI(){
     PilaAVL p2;
     while(!p.Vacia() || Act!=NULL){
         if(Act!=NULL){
-            p2.Push(new NodoBinarioAVL (Act->valor));
+            p2.Push(new NodoBinarioAVL (Act->valor,Act->nombre));
             p.Push(Act);
             Act = Act->Hder;
         }else{
@@ -256,14 +297,14 @@ void BinarioAVL::Equilibrar2(NodoBinarioAVL* n, bool Hh){
     }
 }
 
-void BinarioAVL::InsertarBalanceado(pNodoBinarioAVL &ra, bool &Hh, int x){
+void BinarioAVL::InsertarBalanceado(pNodoBinarioAVL &ra, bool &Hh, int x, string nombre){
     pNodoBinarioAVL n1;
     if(ra==NULL){
-        ra = new NodoBinarioAVL(x);
+        ra = new NodoBinarioAVL(x,nombre);
         Hh = true;
     }else{
         if(x<ra->valor){
-            InsertarBalanceado(ra->Hizq, Hh, x);
+            InsertarBalanceado(ra->Hizq, Hh, x,nombre);
         if(Hh){
             switch(ra->FB){
                 case 1: ra->FB=0;
@@ -283,7 +324,7 @@ void BinarioAVL::InsertarBalanceado(pNodoBinarioAVL &ra, bool &Hh, int x){
         }
         }else{
             if(x>ra->valor){
-                InsertarBalanceado(ra->Hder, Hh, x);
+                InsertarBalanceado(ra->Hder, Hh, x,nombre);
                 if(Hh){
                     switch(ra->FB){
                         case -1: ra->FB=0;

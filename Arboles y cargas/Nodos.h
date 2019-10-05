@@ -5,8 +5,8 @@ using namespace std;
 class NodoBinarioAVL {
    public:
 
-    NodoBinarioAVL(int num, NodoBinarioAVL *der = NULL, NodoBinarioAVL *izq = NULL, NodoBinarioAVL *sig=NULL, NodoBinarioAVL *ant=NULL):
-        Hizq(izq), Hder(der), valor(num), siguiente(sig), anterior(ant), FB(0) {}
+    NodoBinarioAVL(int num,string nombre, NodoBinarioAVL *der = NULL, NodoBinarioAVL *izq = NULL, NodoBinarioAVL *sig=NULL, NodoBinarioAVL *ant=NULL):
+        Hizq(izq), Hder(der), valor(num), siguiente(sig), anterior(ant), FB(0), nombre(nombre) {}
 
     string nombre;
     int valor;
@@ -16,22 +16,22 @@ class NodoBinarioAVL {
     friend class Pila;
     friend class Binario;
     friend class BinarioAVL;
-    void InsertaBinarioAVL(int num);
+    void InsertaBinarioAVL(int num,string nombre);
 };
 
-void NodoBinarioAVL::InsertaBinarioAVL(int num)
+void NodoBinarioAVL::InsertaBinarioAVL(int num, string nombre)
 {
     if(num<valor){
         if(Hizq==NULL){
-            Hizq = new NodoBinarioAVL(num);
+            Hizq = new NodoBinarioAVL(num,nombre);
         }else{
-            Hizq->InsertaBinarioAVL(num);
+            Hizq->InsertaBinarioAVL(num,nombre);
         }
     }else{
         if(Hder==NULL){
-            Hder = new NodoBinarioAVL(num);
+            Hder = new NodoBinarioAVL(num,nombre);
         }else{
-            Hder->InsertaBinarioAVL(num);
+            Hder->InsertaBinarioAVL(num,nombre);
         }
     }
 }
