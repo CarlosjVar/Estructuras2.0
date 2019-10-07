@@ -7,14 +7,13 @@ class Pagina;
 typedef Pagina * PPagina;
 class Pagina
 {
-    protected:
-        tipoClave *claves; // puntero array de claves variables
-        PPagina *ramas; // puntero array de punteros a páginas variable
-        int cuenta; // número de claves que almacena la página
     private:
         int m; //máximo número de claves que puede almacenar la página
     public:
-// crea una página vacía de un cierto orden dado
+        tipoClave *claves; // puntero array de claves variables
+        PPagina *ramas; // puntero array de punteros a páginas variable
+        int cuenta; // número de claves que almacena la página
+        // crea una página vacía de un cierto orden dado
         Pagina (int orden)
         {
             m = orden;
@@ -275,6 +274,7 @@ void ArbolB::listarCreciente()
 {
     inOrden(raiz);
 }
+
 void ArbolB::inOrden(Pagina *r)
 {
     if (r)
