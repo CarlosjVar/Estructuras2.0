@@ -24,8 +24,10 @@ CONFIG   -= app_bundle
 TEMPLATE = app
 SOURCES += \
         main.cpp \
-        mythread.cpp \
-        servidor.cpp
+        myclient.cpp \
+        runnable.cpp \
+        servidor.cpp \
+        task1.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -33,6 +35,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    Client.h \
-    mythread.h \
-    servidor.h
+    myclient.h \
+    runnable.h \
+    servidor.h \
+    task1.h

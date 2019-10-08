@@ -23,7 +23,7 @@ void MyThread::run()
     //Se conecta el socket con la señal
         //Se usa  Qt::DirectConnection porque vamos a usar multiThreading
         //A continuación se invoca un slot para ser utilizado
-
+        connect(socket, SIGNAL(connected()), this, SLOT(disconnected()));
         connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()), Qt::DirectConnection);
         connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
         // Como van a haber varios clientes , deseamos saber quien es quien
@@ -35,16 +35,23 @@ void MyThread::run()
 void MyThread::readyRead()
 {
     // Consigue la información
-    QByteArray Data = socket->readAll();
+    QByteArray Data = this->socket->readAll();
 
     // Imprime en la consola del servidor
-    qDebug() << socketDescriptor << " Data in: " << Data;
-
-    socket->write(Data);
+    qDebug(Data);
+    this->socket->write("Cliete escribió"+Data);
 }
 void MyThread::disconnected()
 {
     qDebug() << socketDescriptor << " Disconnected";
+
+
+    socket->deleteLater();
+    exit(0);
+}
+void MyThread::connected()
+{
+    qDebug() << socketDescriptor << " connected";
 
 
     socket->deleteLater();

@@ -1,9 +1,10 @@
 #include "servidor.h"
-#include "mythread.h"
+#include "myclient.h"
 Servidor::Servidor(QObject *parent) :
     QTcpServer(parent)
 {
-
+    pool =new QThreadPool(this);
+    pool->setMaxThreadCount(5);
 }
 void Servidor::startServer()
 {
@@ -14,18 +15,13 @@ void Servidor::startServer()
         }
     else
        {
-           qDebug() << "Leyendo del puerto " << port << "...";
+           qDebug() << "Inicio el servidor";
        }
 
 }
 void Servidor::incomingConnection(qintptr socketDescriptor)
 {
-    //Se recibe una nueva conexión
-    qDebug()<<socketDescriptor<<"Conectando";
-    MyThread *thread =new MyThread(socketDescriptor,this);
-    // Conecta la señal/perdida
-    // Cuando el thread no se necesite será eliminado
-    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+    MyClient *cliente=new MyClient(this);
+    cliente->SetSocket(socketDescriptor);
 
-    thread->start();
 }

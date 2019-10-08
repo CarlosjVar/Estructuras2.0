@@ -15,6 +15,7 @@ signals:
 public slots:
     void readyRead();
     void disconnected();
+    void connected();
 private:
     QTcpSocket *socket;
     qintptr socketDescriptor;
