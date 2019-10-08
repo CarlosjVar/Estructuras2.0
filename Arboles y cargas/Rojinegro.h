@@ -18,7 +18,8 @@ typedef Node *NodePtr;
 
 
 class RBTree {
-public:
+
+private:
 	NodePtr root;
 
 	// initializes the nodes with appropirate values
@@ -262,15 +263,21 @@ public:
 		   }
 
            string sColor = root->color?"RED":"BLACK";
-		   cout<<root->data<<"("<<sColor<<")"<<endl;
+		   cout<<root->data<<","<<root->nombre<<"("<<sColor<<")"<<endl;
 		   printHelper(root->left, indent, false);
 		   printHelper(root->right, indent, true);
 		}
 		// cout<<root->left->data<<endl;
 	}
 
+public:
+
 	RBTree() {
 		root = NULL;
+	}
+
+	RBTree(NodePtr raiz) {
+		root = raiz;
 	}
 
 	// Pre-Order traversal
