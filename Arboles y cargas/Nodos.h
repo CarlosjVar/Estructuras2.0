@@ -12,7 +12,7 @@ class NodoBinarioAVL {
     int valor;
     int FB;
     NodoBinarioAVL *Hizq, *Hder, *siguiente, *anterior;
-
+    NodePtr marcas = NULL;
     friend class Pila;
     friend class Binario;
     friend class BinarioAVL;

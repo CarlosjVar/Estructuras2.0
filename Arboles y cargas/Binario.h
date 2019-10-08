@@ -1,5 +1,5 @@
-#include "Pila.h"
 #include "Rojinegro.h"
+#include "Pila.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -19,6 +19,7 @@ public:
     void PostordenI();
     void PostordenG(pNodoBinario pRaiz);
     void cargarPasillos (string pNombreArchivo);
+    void cargarMarcas (string pNombreArchivo);
     bool Hh = false;
 };
 
@@ -140,14 +141,11 @@ void Binario::PostordenG(pNodoBinario pRaiz)
 class BinarioAVL{
 public:
     pNodoBinarioAVL raiz;
-
     BinarioAVL():raiz(NULL){}
-
     void PreordenI();
     void InordenI();
     void PostordenI();
     void PostordenG(pNodoBinarioAVL pRaiz);
-
     bool Hh = false;
 
     void Equilibrar1(NodoBinarioAVL *n, bool);
@@ -189,6 +187,58 @@ void Binario::cargarProductos (string pNombreArchivo){
     }
     return;
 }
+
+void Binario::cargarMarcas (string pNombreArchivo){
+    string linea;
+    int codigoPasillo;
+    int codigoProducto;
+    int codigo;
+    int cantidadGondola;
+    string nombre;
+    int precio;
+    string precioS;
+    string cantidadGondolaS;
+    string codigoS;
+    string codigoProductoS;
+    string codigoPasilloS;
+    ifstream archivo (pNombreArchivo);
+    while (getline(archivo, linea)){
+        istringstream lineaActual (linea);
+        getline(lineaActual,codigoPasilloS,';');
+        getline(lineaActual,codigoProductoS,';');
+        getline(lineaActual,codigoS,';');
+        getline(lineaActual,nombre,';');
+        getline(lineaActual,cantidadGondolaS,';');
+        getline(lineaActual,precioS,';');
+        codigo = stoi (codigoS);
+        codigoPasillo = stoi (codigoPasilloS);
+        precio = stoi (precioS);
+        codigoProducto = stoi (codigoProductoS);
+        cantidadGondola = stoi (cantidadGondolaS);
+        pNodoBinario aux = buscarNodo(raiz,codigoPasillo);
+        if (aux!=NULL){
+            pNodoBinarioAVL aux2 = buscarNodoAVL(aux->productos,codigoProducto);
+            if (aux2!=NULL){
+                if (aux2->marcas==NULL){
+                    RBTree temp = RBTree();
+                    temp.insert(codigo,nombre,precio,cantidadGondola);
+                    aux2->marcas = temp.root;
+                }else{
+                    RBTree temp = RBTree();
+                    temp.root = aux2->marcas;
+                    NodePtr aux3 = temp.searchTree(codigo);
+                    if (aux3==NULL){
+                        temp.insert(codigo,nombre,precio,cantidadGondola);
+                        aux2->marcas = temp.root;
+                    }
+                }
+            }
+        }
+    }
+    archivo.close();
+    return;
+}
+
 
 void BinarioAVL::PreordenI(){
     NodoBinarioAVL *Act = raiz;
