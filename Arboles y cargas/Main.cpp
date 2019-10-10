@@ -2,7 +2,9 @@
 #include "Binario.h"
 #include "ListaCiudades.h"
 #include <iostream>
-
+#include "menu.h"
+#include "Nodos.h"
+#include <sstream>
 using namespace std;
 
 int main(){
@@ -17,4 +19,6 @@ int main(){
     listaCiudades L1 = listaCiudades();
     L1.cargarCiudades("Ciudades.txt");
     L1.Mostrar();
+    Menu men=Menu();
+    men.menu(B1,B2);
 }
