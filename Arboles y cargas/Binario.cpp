@@ -1,31 +1,8 @@
-#include "Rojinegro.h"
-#include "Pila.h"
-#include <iostream>
-#include <fstream>
-#include <sstream>
-using namespace std;
-
-
-class Binario{
-public:
-    pNodoBinario raiz;
-
-    Binario():raiz(NULL){}
-
-    void cargarProductos (string pNombreArchivo);
-    void InsertaNodo(int num, string nombre);
-    void PreordenI();
-    void InordenI();
-    void PostordenI();
-    void PostordenG(pNodoBinario pRaiz);
-    void cargarPasillos (string pNombreArchivo);
-    void cargarMarcas (string pNombreArchivo);
-    bool Hh = false;
-};
+#include "Binario.h"
 
 pNodoBinario buscarNodo(pNodoBinario pRaiz, int valor)
 {
-    if (pRaiz == NULL || pRaiz->valor == valor)
+    if (pRaiz == nullptr || pRaiz->valor == valor)
        return pRaiz;
     if (pRaiz->valor < valor)
        return buscarNodo(pRaiz->Hder, valor);
@@ -34,7 +11,7 @@ pNodoBinario buscarNodo(pNodoBinario pRaiz, int valor)
 
 pNodoBinarioAVL buscarNodoAVL(pNodoBinarioAVL pRaiz, int valor)
 {
-    if (pRaiz == NULL || pRaiz->valor == valor)
+    if (pRaiz == nullptr || pRaiz->valor == valor)
        return pRaiz;
     if (pRaiz->valor < valor)
        return buscarNodoAVL(pRaiz->Hder, valor);
@@ -52,7 +29,7 @@ void Binario::cargarPasillos(string pNombreArchivo){
         getline(lineaActual,codigoS,';');
         getline(lineaActual,nombre,';');
         codigo = stoi (codigoS);
-        if (raiz==NULL){
+        if (raiz==nullptr){
             InsertaNodo(codigo,nombre);
         }else{
             pNodoBinario aux = buscarNodo(raiz,codigo);
@@ -100,7 +77,7 @@ void Binario::InordenI(){
         }
         if(!p.Vacia()){
             Act=p.Pop();
-            cout<<Act->valor<<","<<Act->nombre<<" - "<<endl;
+            cout<<Act->valor<<","<<Act->nombre<<" - ";
             Act=Act->Hder;
         }
         if(p.Vacia() & Act==NULL){
@@ -137,26 +114,6 @@ void Binario::PostordenG(pNodoBinario pRaiz)
     PostordenG(pRaiz->Hder);
     cout<<pRaiz->valor<<","<<pRaiz->nombre<<" - ";
 }
-
-class BinarioAVL{
-public:
-    pNodoBinarioAVL raiz;
-    BinarioAVL():raiz(NULL){}
-    void PreordenI();
-    void InordenI();
-    void PostordenI();
-    void PostordenG(pNodoBinarioAVL pRaiz);
-    bool Hh = false;
-
-    void Equilibrar1(NodoBinarioAVL *n, bool);
-    void Equilibrar2(NodoBinarioAVL *n, bool);
-    void InsertarBalanceado(NodoBinarioAVL*&r, bool &Hh, int x, string nombre);
-    void RotacionDobleIzquierda(NodoBinarioAVL *&n1, NodoBinarioAVL *&n2);
-    void RotacionDobleDerecha(NodoBinarioAVL *&n1, NodoBinarioAVL *&n2);
-    void RotacionSimpleIzquierda(NodoBinarioAVL *&n1, NodoBinarioAVL *&n2);
-    void RotacionSimpleDerecha(NodoBinarioAVL *&n1, NodoBinarioAVL *&n2);
-};
-
 void Binario::cargarProductos (string pNombreArchivo){
     string linea;
     string codigoS;
@@ -260,7 +217,7 @@ void BinarioAVL::InordenI(){
     PilaAVL p;
     bool band=true;
     while(band){
-        while(Act!=NULL){
+        while(Act!=nullptr){
             p.Push(Act);
             Act = Act->Hizq;
         }
@@ -335,7 +292,7 @@ void BinarioAVL::Equilibrar2(NodoBinarioAVL* n, bool Hh){
         break;
         case -1: n1 = n->Hizq;
         if(n1->FB<=0){
-            if(n1->FB=0){
+            if(n1->FB==0){
                 Hh = false;
                 RotacionSimpleIzquierda(n, n1);
             }else{
@@ -466,5 +423,4 @@ void BinarioAVL::RotacionSimpleIzquierda(NodoBinarioAVL*& n, NodoBinarioAVL*& n1
     }
     n=n1;
 }
-
 

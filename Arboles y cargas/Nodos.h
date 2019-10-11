@@ -81,7 +81,7 @@ void NodoBinario::InsertaBinario(int num,string nombre)
 class nodoCompra{
     ///Nodo utilizado en la pila de compras para guardar informaci�n acerca de los productos seleccionados por el cliente
 public:
-    nodoCompra(string pasillop,string productop,string marcap,string nombrep,int pcantidad){
+    nodoCompra(int pasillop,int productop,int marcap,string nombrep,int pcantidad){
     pasillo=pasillop;
     producto=productop;
     marca=marcap;
@@ -89,7 +89,7 @@ public:
     cantidad=pcantidad;
     siguiente=NULL;
     }
-    nodoCompra(string pasillop,string productop,string marcap,string nombrep,int pcantidad, nodoCompra*sigui)
+    nodoCompra(int pasillop,int productop,int marcap,string nombrep,int pcantidad, nodoCompra*sigui)
     {
        pasillo=pasillop;
         producto=productop;
@@ -101,9 +101,9 @@ public:
     int cantidad;
     nodoCompra*siguiente;
 private:
-    string pasillo;
-    string producto;
-    string marca;
+    int pasillo;
+    int producto;
+    int marca;
     string nombre;
 
 friend class Pila;
@@ -116,7 +116,7 @@ class PilaC{
     ///Pila que contiene los elementos del carrito del cliente
 public:
     PilaC(){primero=actual=NULL;}
-    void InsertarInicio(string pasillop,string productop,string marcap,string nombrep,int pcantidad);
+    void InsertarInicio(int pasillop,int productop,int marcap,string nombrep,int pcantidad);
     conodo BorrarInicio();
     bool PilaVacia(){return primero==NULL;}
     void Mostrar();
@@ -126,7 +126,7 @@ private:
     nodoCompra*actual;
     friend class Menu;
 };
-void PilaC::InsertarInicio(string pasillop,string productop,string marcap,string nombrep,int pcantidad)
+void PilaC::InsertarInicio(int pasillop,int productop,int marcap,string nombrep,int pcantidad)
 ///Inserta al tope de la pila
 {
 if (PilaVacia())
@@ -152,6 +152,16 @@ if (PilaVacia()){
 class nodoCliente{
     ///Nodo que guarda la informaci�n de los clientes
 public:
+    string cedula;
+    string nombre;
+    string telefono;
+    string correo;
+    int facturas;
+    nodoCliente*siguiente;
+    nodoCliente*anterior;
+    PilaC*carrito;
+    int total;
+    int mayor;
     nodoCliente(string pcedula,string pnombre,string ptelefono,string pcorreo){
     cedula=pcedula;
     nombre=pnombre;
@@ -176,18 +186,10 @@ public:
     facturas=0;
     total=0;
     mayor=pmayor;
+
     }
-private:
-    string cedula;
-    string nombre;
-    string telefono;
-    string correo;
-    int facturas;
-    nodoCliente*siguiente;
-    nodoCliente*anterior;
-    PilaC*carrito;
-    int total;
-    int mayor;
+
+
 friend class listaClientes;
 friend class Menu;
 friend class ColaS;
