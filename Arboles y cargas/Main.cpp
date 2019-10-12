@@ -19,6 +19,7 @@ int main(){
     listaCiudades L1 = listaCiudades();
     L1.cargarCiudades("Ciudades.txt");
     L1.Mostrar();
+    B2.inOrden(B2.obtenerRaiz());
     Menu asd=Menu();
     asd.menu(B1,B2);
 }

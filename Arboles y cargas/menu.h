@@ -7,6 +7,7 @@
 #ifndef MENU_H_INCLUDED
 #define MENU_H_INCLUDED
 #include <stdlib.h>
+#include <iostream>
 void InordenAVLE(pNodoBinarioAVL asd)
 {
     if(asd==NULL){
@@ -236,38 +237,35 @@ void Menu::comprar(ArbolB clientes,Binario super)
 ///Out:None
 ///Funci�n: Solicita cedula y verifica contra listacliente/colaespera
 {
-string cedula;
+int cedula;
 cout<<"Por favor ingrese su numero de cedula:  "<<endl;
 cout<<"Cedula: ";
 cin>>cedula;
 cout<<" "<<endl;
 int cedulaI;
-stringstream geek(cedula);
-geek>>cedulaI;
 int k;
-//if(clientes.buscarNodo(clientes.obtenerRaiz(),cedulaI,k))
-//
-//{
+if(clientes.buscarNodo(clientes.obtenerRaiz(), cedula,k))
+{
+    cout<<"hola"<<endl;
+    string s= to_string(cedula);
     clienodo validar=espera->primero;
-
-//    while(validar!=NULL)
-//    {
-//        if(validar->cedula==aux->obtenerClave(0))
-//        {
-//            cout<<"Esta cedula se encuentra en el supermercado"<<endl;
-//            return;
-//        }
-//        validar=validar->siguiente;
-//    }
+    while(validar!=NULL)
+    {
+        if(validar->cedula==s)
+        {
+            cout<<"Esta cedula se encuentra en el supermercado"<<endl;
+            return;
+        }
+        validar=validar->siguiente;
+    }
     cout<<"Bienvenido :"<<"\n"<<endl;
-    //aux->carrito=new Pila;
-    clienodo aux2;
+    clienodo aux2=new nodoCliente();
     menucompra(super,aux2);
-//}
-//else{
-//    cout<<"No se encuentra afiliado"<<endl;
-//    return;
-//}
+}
+else{
+    cout<<"No se encuentra afiliado"<<endl;
+    return;
+}
 }
 
 void Menu::menu(Binario super,ArbolB clientes)
