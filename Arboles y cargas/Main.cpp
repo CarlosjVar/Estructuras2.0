@@ -5,6 +5,7 @@
 #include "Nodos.h"
 #include <sstream>
 #include "menu.h"
+#include "AA.h"
 using namespace std;
 
 int main(){
@@ -18,8 +19,13 @@ int main(){
     B3.cargarAdmins("Administradores.txt");
     listaCiudades L1 = listaCiudades();
     L1.cargarCiudades("Ciudades.txt");
+<<<<<<< HEAD
     L1.Mostrar();
     B2.inOrden(B2.obtenerRaiz());
+=======
+    AA B4 = AA();
+    B4.cargarInventario("Inventario.txt");
+>>>>>>> master
     Menu asd=Menu();
     asd.menu(B1,B2);
 }
