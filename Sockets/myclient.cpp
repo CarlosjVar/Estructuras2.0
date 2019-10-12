@@ -6,12 +6,12 @@ MyClient::MyClient(QObject *parent) : QObject(parent)
 }
 void MyClient::SetSocket(qintptr Descriptor)
 {
-    socket= new QTcpSocket(this);
+    this->socket= new QTcpSocket(this);
     connect(socket, SIGNAL(connected()), this, SLOT(connected()));
     connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
     connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
-    socket->setSocketDescriptor(Descriptor);
-    qDebug()<<"Cliente conectado";
+    this->socket->setSocketDescriptor(Descriptor);
+    qDebug()<<"Cliente conectado: "+Descriptor;
 }
 void MyClient::connected()
 {
@@ -23,14 +23,8 @@ void MyClient::disconnected()
 }
 void MyClient::readyRead()
 {
-   QByteArray requestData=this->socket->readAll();
+   QByteArray requestData = this->socket->readAll();
    qDebug(requestData);
-   this->socket->write("Cliente Wrote:"+requestData);
+   this->socket->write("Cliente wrote: " + requestData);
 }
-void MyClient::TaskResult(int Number)
-{
-    QByteArray Buffer;
-    Buffer.append("task result= ");
-    Buffer.append(QString::number(Number));
-    socket->write(Buffer);
-}
+

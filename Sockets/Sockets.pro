@@ -23,11 +23,16 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 SOURCES += \
-        main.cpp \
-        myclient.cpp \
-        runnable.cpp \
-        servidor.cpp \
-        task1.cpp
+    B.cpp \
+    Binario.cpp \
+    Nodos.cpp \
+    Pila.cpp \
+    Rojinegro.cpp \
+    adminthread.cpp \
+    main.cpp \
+    myclient.cpp \
+    servidor.cpp
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -35,7 +40,27 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    AA.h \
+    B.h \
+    Binario.h \
+    Client.h \
+    Globales.h \
+    ListaCiudades.h \
+    Nodos.h \
+    Pila.h \
+    Rojinegro.h \
+    adminthread.h \
+    menu.h \
     myclient.h \
-    runnable.h \
-    servidor.h \
-    task1.h
+    servidor.h
+
+DISTFILES += \
+    Administradores.txt \
+    Ciudades.txt \
+    Clientes.txt \
+    Inventario.txt \
+    Main.o \
+    MarcasProductos.txt \
+    Pasillos.txt \
+    ProductosPasillos.txt \
+    Sockets.pro.user

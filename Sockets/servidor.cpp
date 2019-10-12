@@ -23,5 +23,6 @@ void Servidor::incomingConnection(qintptr socketDescriptor)
 {
     MyClient *cliente=new MyClient(this);
     cliente->SetSocket(socketDescriptor);
+    qDebug()<<"Nuevo cliente "+ socketDescriptor;
 
 }

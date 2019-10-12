@@ -4,7 +4,6 @@
 #include <QTcpSocket>
 #include <QDebug>
 #include <QThreadPool>
-#include "task1.h"
 
 class MyClient : public QObject
 {
@@ -18,7 +17,6 @@ public slots:
     void connected();
     void disconnected();
     void readyRead();
-    void TaskResult(int Number);
 private:
     QTcpSocket *socket;
 };
