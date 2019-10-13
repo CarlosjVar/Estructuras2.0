@@ -1,0 +1,12 @@
+release/B.o
+release/Binario.o
+release/Nodos.o
+release/Pila.o
+release/Rojinegro.o
+release/adminthread.o
+release/main.o
+release/mycliente.o
+release/server.o
+release/moc_adminthread.o
+release/moc_mycliente.o
+release/moc_server.o

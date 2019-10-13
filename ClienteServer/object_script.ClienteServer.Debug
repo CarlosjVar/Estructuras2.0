@@ -1,0 +1,12 @@
+debug/B.o
+debug/Binario.o
+debug/Nodos.o
+debug/Pila.o
+debug/Rojinegro.o
+debug/adminthread.o
+debug/main.o
+debug/mycliente.o
+debug/server.o
+debug/moc_adminthread.o
+debug/moc_mycliente.o
+debug/moc_server.o
