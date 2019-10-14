@@ -50,6 +50,17 @@ void SocketTest::readyRead()
            this->conectado=false;
          }
      }
+     else if(data.toStdString().substr(0,2)=="RG")
+     {
+         if(data.toStdString().substr(2,1)=="Y")
+         {
+             qDebug()<<"Se ha registrado correctamente";
+         }
+         else
+         {
+             qDebug()<<"Esta cédula ya existe en el sistemas";
+         }
+     }
 }
 void SocketTest::waitResponse(int q)
 {

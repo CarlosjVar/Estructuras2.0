@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include "socketglobal.h"
+#include <regex>
 class Thread:public QThread
 {
     Q_OBJECT
@@ -12,9 +13,10 @@ public:
     Thread(QObject*parent=nullptr);
     void run() override;
     bool LoginV();
+    std::string pedirDato();
 signals:
     void WriteByte(QByteArray data);
-    void waitResponse();
+    void waitResponse(int q);
 };
-
+bool is_email_valid(const std::string& email);
 #endif // THREAD_H

@@ -15,6 +15,8 @@ class Mycliente: public QObject
 public:
    explicit Mycliente(QObject*parent=nullptr);
    void SetSocket(qintptr Desc);
+   void conectadoE(QByteArray data);
+   void registrarCliente(QByteArray data);
 signals:
 
 public slots:
