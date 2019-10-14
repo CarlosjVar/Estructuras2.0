@@ -23,7 +23,23 @@ void Mycliente::disconnected()
 }
 void Mycliente::readyRead()
 {
-    qDebug()<<socket->readAll();
+    QByteArray data=socket->readAll();
+    if(data.toStdString().substr(0,2)=="LO")
+    {
+        std::string cedula=data.toStdString().substr(2,7);
+        Pagina*cliente=new Pagina(5);
+        int k;
+        cliente=clientes.buscar(std::stoi(cedula),k);
+        if (cliente!=nullptr)
+        {
+            socket->write("LOS");
+        }
+        else
+        {
+            socket->write("LON");
+        }
+
+    }
 }
 void Mycliente::write(QByteArray data)
 {

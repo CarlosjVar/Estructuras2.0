@@ -4,7 +4,10 @@
 #include <QObject>
 #include <QTcpSocket>
 #include <QtDebug>
+#include <string>
 #include <QThreadPool>
+#include "B.h"
+#include "Globales.h"
 
 class Mycliente: public QObject
 {

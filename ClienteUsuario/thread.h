@@ -11,8 +11,10 @@ class Thread:public QThread
 public:
     Thread(QObject*parent=nullptr);
     void run() override;
+    bool LoginV();
 signals:
     void WriteByte(QByteArray data);
+    void waitResponse();
 };
 
 #endif // THREAD_H

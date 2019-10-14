@@ -2,7 +2,9 @@
 #define GLOBALES_H
 #include "B.h"
 #include "Binario.h"
-extern ArbolB B2;
-extern ArbolB B3;
-extern Binario B1;
+#include "AA.h"
+extern ArbolB clientes;
+extern ArbolB administradores;
+extern Binario supermercado;
+extern AA inventario;
 #endif // GLOBALES_H

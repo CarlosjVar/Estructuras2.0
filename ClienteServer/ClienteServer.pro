@@ -17,6 +17,7 @@ QT       += core
 QT       += network
 QT       -= gui
 SOURCES += \
+        AA.cpp \
         B.cpp \
         Binario.cpp \
         Nodos.cpp \

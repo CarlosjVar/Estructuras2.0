@@ -23,9 +23,12 @@ public slots:
     void disconnected();
     void readyRead();
     void WriteByte(QByteArray data);
+    void waitResponse(int q);
+    bool getestado();
 private:
     QTcpSocket *socket;
-
+    bool conectado;
+friend class Thread;
 };
 
 #endif // SOCKETTEST_H

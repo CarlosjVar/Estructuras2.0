@@ -38,5 +38,24 @@ void SocketTest::WriteByte(QByteArray data)
 }
 void SocketTest::readyRead()
 {
-    qDebug()<<this->socket->readAll();
+     QByteArray data=socket->readLine();
+     if(data.toStdString().substr(0,2)=="LO")
+     {
+         if(data.toStdString().substr(2,1)=="S")
+         {
+           this->conectado=true;
+         }
+         else
+         {
+           this->conectado=false;
+         }
+     }
+}
+void SocketTest::waitResponse(int q)
+{
+    this->socket->waitForReadyRead(q);
+}
+bool SocketTest::getestado()
+{
+    return this->conectado;
 }

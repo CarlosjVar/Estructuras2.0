@@ -12,7 +12,7 @@ void adminThread::run()
     cin>>cedula;
     Pagina*pag=new Pagina(5);
     int k;
-    pag=B3.buscar(cedula,k);
+    pag=administradores.buscar(cedula,k);
     if(pag!=nullptr)
     {
         cout<<"Bienvenido: "<<pag->obtenerDato(k,0)<<endl;

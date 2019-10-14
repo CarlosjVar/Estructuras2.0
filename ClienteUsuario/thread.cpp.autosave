@@ -21,6 +21,10 @@ void Thread::run()
         if(socket.getestado())
         {
             cout<<"Se ha logueado";
+            while(true)
+            {
+                
+            }
         }
         else
         {
